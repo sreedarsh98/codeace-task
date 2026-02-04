@@ -20,7 +20,6 @@ import { Label } from "@/components/ui/label"
 import { Image as ImageIcon, Tag, DollarSign, AlignLeft } from "lucide-react"
 import { Product } from "@/types/product"
 
-/* ---------------------- Zod Schema ---------------------- */
 const schema = z.object({
   title: z.string().min(3, "Title must be at least 3 characters"),
   price: z.number().positive("Price must be greater than 0"),
@@ -31,13 +30,11 @@ const schema = z.object({
 
 type FormValues = z.infer<typeof schema>
 
-/* ---------------------- Props ---------------------- */
 type AddProductDialogProps = {
   onAdd: (product: Product) => void
   categories: string[]
 }
 
-/* ---------------------- Component ---------------------- */
 export default function AddProductDialog({
   onAdd,
   categories,
@@ -50,7 +47,6 @@ export default function AddProductDialog({
     reset,
     formState: { errors, isSubmitting },
   } = useForm<FormValues>({
-    // 🔥 FINAL FIX — explicit resolver cast
     resolver: zodResolver(schema) as Resolver<FormValues>,
     defaultValues: {
       title: "",
@@ -94,7 +90,6 @@ export default function AddProductDialog({
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           <div className="grid gap-6 md:grid-cols-[1.2fr_0.8fr]">
-            {/* ---------------- Left Side ---------------- */}
             <div className="space-y-5">
               {/* Title */}
               <div className="space-y-2">
@@ -113,7 +108,6 @@ export default function AddProductDialog({
                 )}
               </div>
 
-              {/* Price & Category */}
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="space-y-2">
                   <Label htmlFor="price">Price</Label>
@@ -152,7 +146,6 @@ export default function AddProductDialog({
                 </div>
               </div>
 
-              {/* Image */}
               <div className="space-y-2">
                 <Label htmlFor="image">Image URL</Label>
                 <div className="relative">
@@ -188,7 +181,6 @@ export default function AddProductDialog({
               </div>
             </div>
 
-            {/* ---------------- Right Side ---------------- */}
             <div className="rounded-xl border border-slate-200 bg-slate-50 p-4 flex flex-col gap-4">
               <div className="text-sm font-semibold text-slate-700">
                 Live preview
